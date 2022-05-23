@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/faizanbardai/redi_banking_back_end/issues"
   },
-  "homepage": "https://github.com/faizanbardai/redi_banking_back_end#readme"
+  "homepage": "https://github.com/faizanbardai/redi_banking_back_end#readme",
+  "dependencies": {}
 }
