@@ -9,6 +9,7 @@ from db.database import Database
 
 load_dotenv()
 origins = [os.environ.get("front-end")]
+print(os.environ.get("front-end"))
 
 app = FastAPI()
 
