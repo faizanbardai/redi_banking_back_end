@@ -1,6 +1,8 @@
 import sqlite3
 from sqlite3 import Error
+from classes.customer import Customer
 from db.queries.create_customer_table import create_customer_table_query
+from db.queries.create_account_table import create_account_table
 
 class Database:
     _path = "./database.db"
@@ -15,7 +17,7 @@ class Database:
             print("Connection to SQLite DB successful")
         except Error as e:
             print(f"The error '{e}' occurred")
-    
+                
 
     def execute_query(self,query):
         cursor = self._connection.cursor()
@@ -28,3 +30,4 @@ class Database:
 
     def create_tables(self):
         self.execute_query(create_customer_table_query)
+        self.execute_query(create_account_table)

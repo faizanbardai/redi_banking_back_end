@@ -1,0 +1,11 @@
+POST http://127.0.0.1:8000/customer HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "Faizan",
+    "last_name": "Bardai",
+    "address": "abc112",
+    "phone": "112",
+    "email": "faizan1",
+    "password": "hello"
+}
