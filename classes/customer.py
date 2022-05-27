@@ -11,7 +11,18 @@ class Customer:
         self.password = None
     
     def is_new_customer(self):
-        return True
+        connection = sqlite3.connect('database.db')
+        cursor = connection.cursor()
+        query = """
+            SELECT * FROM customer WHERE email = ?
+        """
+        try:
+            cursor.execute(query, (self.email,))
+            result = cursor.fetchone()
+            connection.close()
+            return False if result else True
+        except Error as e:
+            print(f"The error '{e}' occurred")
     
     def register_customer(self, first_name, last_name, address, phone, password):
         self.first_name = first_name
@@ -30,6 +41,7 @@ class Customer:
         try:
             cursor.execute(query, (self.email, self.first_name, self.last_name, self.address, self.phone, self.password))
             connection.commit()
+            connection.close()
             print("New customer added")
         except Error as e:
             print(f"The error '{e}' occurred")
