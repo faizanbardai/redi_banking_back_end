@@ -61,7 +61,7 @@ class LoginUser(BaseModel):
 async def login_customer(user: LoginUser, response: Response):
     customer = Customer(user.email)
     if customer.login_customer(user.password):
-        return {"message": "You are successfully logged in."}
+        return {"message": "You are successfully logged in.", "customer": customer.get_customer_details()}
     else:
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return {"message": "Invalid credentials."}

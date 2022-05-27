@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
+
 class Customer:
     def __init__(self, email):
         self.email = email
@@ -9,7 +10,7 @@ class Customer:
         self.address = None
         self.phone = None
         self.password = None
-    
+
     def is_new_customer(self):
         connection = sqlite3.connect('database.db')
         cursor = connection.cursor()
@@ -35,7 +36,14 @@ class Customer:
             cursor.execute(query, (self.email, self.password))
             result = cursor.fetchone()
             connection.close()
-            return True if result else False
+            if result:
+                self.first_name = result[1]
+                self.last_name = result[2]
+                self.address = result[3]
+                self.phone = result[4]
+                return True
+            else:
+                return False
         except Error as e:
             print(f"The error '{e}' occurred")
 
@@ -54,12 +62,22 @@ class Customer:
             VALUES (?, ?, ?, ?, ?, ?)
         """
         try:
-            cursor.execute(query, (self.email, self.first_name, self.last_name, self.address, self.phone, self.password))
+            cursor.execute(query, (self.email, self.first_name,
+                           self.last_name, self.address, self.phone, self.password))
             connection.commit()
             connection.close()
             print("New customer added")
         except Error as e:
             print(f"The error '{e}' occurred")
-    
+
+    def get_customer_details(self):
+        return {
+            "firstName": self.first_name,
+            "lastName": self.last_name,
+            "address": self.address,
+            "phone": self.phone,
+            "email": self.email,
+        }
+
     def __repr__(self):
         return f"<Customer {self.first_name}>"
