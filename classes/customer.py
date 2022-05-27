@@ -23,7 +23,22 @@ class Customer:
             return False if result else True
         except Error as e:
             print(f"The error '{e}' occurred")
-    
+
+    def login_customer(self, password):
+        self.password = password
+        connection = sqlite3.connect('database.db')
+        cursor = connection.cursor()
+        query = """
+            SELECT * FROM customer WHERE email = ? AND password = ?
+        """
+        try:
+            cursor.execute(query, (self.email, self.password))
+            result = cursor.fetchone()
+            connection.close()
+            return True if result else False
+        except Error as e:
+            print(f"The error '{e}' occurred")
+
     def register_customer(self, first_name, last_name, address, phone, password):
         self.first_name = first_name
         self.last_name = last_name

@@ -1,4 +1,4 @@
-POST http://127.0.0.1:8000/customer HTTP/1.1
+POST http://127.0.0.1:8000/customer/register HTTP/1.1
 content-type: application/json
 
 {
@@ -7,5 +7,15 @@ content-type: application/json
     "address": "abc112",
     "phone": "112",
     "email": "faizan1",
+    "password": "hello"
+}
+
+###
+
+POST http://127.0.0.1:8000/customer/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "faizan",
     "password": "hello"
 }
