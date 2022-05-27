@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from classes.customer import Customer
@@ -37,12 +37,12 @@ class User(BaseModel):
     email: str
     password: str
 
-@app.post("/customer")
-async def create_customer(user: User):
+@app.post("/customer", status_code=status.HTTP_201_CREATED)
+async def create_customer(user: User, response: Response):
     customer = Customer(user.email)
-    if(customer.is_new_customer):
+    if customer.is_new_customer():
         customer.register_customer(user.first_name, user.last_name, user.address, user.phone, user.password)
+        return {"message": "Your account is successfully created."}
     else:
-        print("Old customer")
-
-    return {"message": "Customer created"}
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return {"message": "Your email is already registered."}
