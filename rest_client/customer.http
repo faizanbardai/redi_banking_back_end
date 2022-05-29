@@ -19,3 +19,11 @@ content-type: application/json
     "email": "faizan1",
     "password": "hello"
 }
+
+###
+
+GET http://127.0.0.1:8000/customer/data HTTP/1.1
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJGYWl6YW4iLCJsYXN0TmFtZSI6IkJhcmRhaSIsImFkZHJlc3MiOiJhYmMxMTIiLCJwaG9uZSI6IjExMiIsImVtYWlsIjoiZmFpemFuMSIsImV4cCI6MTY1Mzc1MTk5OH0.DZ6xCL14pIjVymMlWi2TxVnebMVhnttM1M_iaYInhL8
+
+
+
