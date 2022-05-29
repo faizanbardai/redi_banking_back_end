@@ -1,14 +1,15 @@
 from datetime import datetime, timedelta
 import sqlite3
 from sqlite3 import Error
-
 import jwt
+
+from classes.bank_account import BankAccount
 
 
 class Customer:
 
     def __init__(self, email):
-        self.email = email
+        self.email = email.lower()
         self.first_name = None
         self.last_name = None
         self.address = None
@@ -90,21 +91,40 @@ class Customer:
 
     def is_valid_token(self, token, secret):
         try:
-            jwt.decode(token, secret, algorithms=['HS256'])
+            customer_data = jwt.decode(token, secret, algorithms=['HS256'])
+            self.first_name = customer_data['firstName']
+            self.last_name = customer_data['lastName']
+            self.address = customer_data['address']
+            self.phone = customer_data['phone']
+            self.email = customer_data['email']
             return True
-        except Error as e:
-            print(f"The error '{e}' occurred")
+
+        except(jwt.ExpiredSignatureError, jwt.InvalidSignatureError, ):
+            print("Token is not yet valid")
             return False
 
-    def set_customer_data_from_token(self, token, secret):
-        customer_data = jwt.decode(token, secret, algorithms=['HS256'])
-        self.first_name = customer_data['firstName']
-        self.last_name = customer_data['lastName']
-        self.address = customer_data['address']
-        self.phone = customer_data['phone']
-        self.email = customer_data['email']
+    def create_bank_account(self, type, name):
+        bank_account = BankAccount(self.email)
+        bank_account.create_bank_account(type, name)
+        return bank_account.get_account_details()
 
-        return self.get_customer_details()
+    def get_bank_accounts(self):
+        connection = sqlite3.connect('database.db')
+        cursor = connection.cursor()
+        query = """
+            SELECT * FROM bank_account WHERE email = ?
+        """
+        try:
+            cursor.execute(query, (self.email,))
+            bank_accounts = cursor.fetchall()
+            connection.close()
+            keys = ["email", "number",
+                    "type", "name", "balance"]
+            bank_accounts = [dict(zip(keys, l)) for l in bank_accounts]
 
-    def __repr__(self):
-        return f"<Customer {self.first_name}>"
+            return bank_accounts
+        except Error as e:
+            print(f"The error '{e}' occurred")
+
+    def __str__(self):
+        return f"<Customer {self.email}>"

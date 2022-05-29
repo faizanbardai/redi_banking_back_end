@@ -6,8 +6,8 @@ content-type: application/json
     "last_name": "Bardai",
     "address": "abc112",
     "phone": "112",
-    "email": "faizan1",
-    "password": "hello"
+    "email": "faizan@bardai.com",
+    "password": "hello123@"
 }
 
 ###
@@ -16,14 +16,54 @@ POST http://127.0.0.1:8000/customer/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "faizan1",
-    "password": "hello"
+    "email": "faizan@bardai.com",
+    "password": "hello123@"
 }
 
 ###
 
 GET http://127.0.0.1:8000/customer/data HTTP/1.1
-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJGYWl6YW4iLCJsYXN0TmFtZSI6IkJhcmRhaSIsImFkZHJlc3MiOiJhYmMxMTIiLCJwaG9uZSI6IjExMiIsImVtYWlsIjoiZmFpemFuMSIsImV4cCI6MTY1Mzc1MTk5OH0.DZ6xCL14pIjVymMlWi2TxVnebMVhnttM1M_iaYInhL8
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJGYWl6YW4iLCJsYXN0TmFtZSI6IkJhcmRhaSIsImFkZHJlc3MiOiJhYmMxMTIiLCJwaG9uZSI6IjExMiIsImVtYWlsIjoiZmFpemFuQGJhcmRhaS5jb20iLCJleHAiOjE2NTM4Njc4MDh9.b75RlY1Td33IpYH6G6iZIp2vDn_8UZcwTM665y56Fw0
 
+###
 
+POST http://127.0.0.1:8000/customer/create-bank-account HTTP/1.1
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJGYWl6YW4iLCJsYXN0TmFtZSI6IkJhcmRhaSIsImFkZHJlc3MiOiJhYmMxMTIiLCJwaG9uZSI6IjExMiIsImVtYWlsIjoiZmFpemFuQGJhcmRhaS5jb20iLCJleHAiOjE2NTM4Njc4MDh9.b75RlY1Td33IpYH6G6iZIp2vDn_8UZcwTM665y56Fw0
+content-type: application/json
+
+{
+    "type": "current",
+    "name": "ABC"
+}
+
+###
+
+GET http://127.0.0.1:8000/customer/bank-accounts HTTP/1.1
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJGYWl6YW4iLCJsYXN0TmFtZSI6IkJhcmRhaSIsImFkZHJlc3MiOiJhYmMxMTIiLCJwaG9uZSI6IjExMiIsImVtYWlsIjoiZmFpemFuQGJhcmRhaS5jb20iLCJleHAiOjE2NTM4Njc4MDh9.b75RlY1Td33IpYH6G6iZIp2vDn_8UZcwTM665y56Fw0
+
+###
+
+POST http://127.0.0.1:8000/customer/deposit HTTP/1.1
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJGYWl6YW4iLCJsYXN0TmFtZSI6IkJhcmRhaSIsImFkZHJlc3MiOiJhYmMxMTIiLCJwaG9uZSI6IjExMiIsImVtYWlsIjoiZmFpemFuQGJhcmRhaS5jb20iLCJleHAiOjE2NTM4Njc4MDh9.b75RlY1Td33IpYH6G6iZIp2vDn_8UZcwTM665y56Fw0
+content-type: application/json
+
+{
+    "type": "current",
+    "number": "470fbca0-70c5-4066-9845-905170a09eaf",
+    "amount": "100.50"
+}
+
+###
+
+POST http://127.0.0.1:8000/customer/withdraw HTTP/1.1
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJGYWl6YW4iLCJsYXN0TmFtZSI6IkJhcmRhaSIsImFkZHJlc3MiOiJhYmMxMTIiLCJwaG9uZSI6IjExMiIsImVtYWlsIjoiZmFpemFuQGJhcmRhaS5jb20iLCJleHAiOjE2NTM4Njc4MDh9.b75RlY1Td33IpYH6G6iZIp2vDn_8UZcwTM665y56Fw0
+content-type: application/json
+
+{
+    "type": "current",
+    "number": "470fbca0-70c5-4066-9845-905170a09eaf",
+    "amount": "200.50"
+}
+
+###
 
