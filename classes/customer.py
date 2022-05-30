@@ -86,7 +86,7 @@ class Customer:
 
     def get_customer_token(self, secret):
         customer_data = self.get_customer_details()
-        customer_data['exp'] = datetime.now() + timedelta(seconds=20)
+        customer_data['exp'] = datetime.now() + timedelta(days=2)
         return jwt.encode(customer_data, secret, algorithm='HS256')
 
     def is_valid_token(self, token, secret):
