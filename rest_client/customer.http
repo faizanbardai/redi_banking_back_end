@@ -67,3 +67,16 @@ content-type: application/json
 
 ###
 
+
+POST http://127.0.0.1:8000/admin/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "admin@redi-school.com",
+    "password": "admin123@"
+}
+
+###
+
+GET http://127.0.0.1:8000/admin/customers HTTP/1.1
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluQHJlZGktc2Nob29sLmNvbSIsImV4cCI6MTY1NDM0NjYxMn0.-uZfRCXDcNxLgupBVcmYWbpxZB4gLVA73Z_H2QvqSdA

@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI, Response, status, Header
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from classes.admin import Admin
 from classes.bank_account import BankAccount
 from classes.customer import Customer
 from dotenv import load_dotenv
@@ -158,6 +159,39 @@ async def get_bank_accounts(response: Response, token: str = Header(None)):
         return {
             "message": "You have successfully retrieved your bank accounts.",
             "bankAccounts": customer.get_bank_accounts()
+        }
+    else:
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return {"message": "Invalid token."}
+
+
+class AdminUser(BaseModel):
+    email: str
+    password: str
+
+
+@app.post("/admin/login", status_code=status.HTTP_200_OK)
+async def login_admin(user: AdminUser, response: Response):
+    admin = Admin()
+    if admin.login(user.email, user.password):
+        return {
+            "message": "You are successfully logged in.",
+            "admin": admin.get_admin_details(),
+            "token": admin.get_admin_token(secret),
+            "customers": admin.get_all_customers()
+        }
+    else:
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+        return {"message": "Invalid credentials."}
+
+
+@app.get("/admin/customers", status_code=status.HTTP_200_OK)
+async def get_customers(response: Response, token: str = Header(None)):
+    admin = Admin()
+    if admin.is_valid_token(token, secret):
+        return {
+            "message": "You are successfully logged in.",
+            "customers": admin.get_all_customers()
         }
     else:
         response.status_code = status.HTTP_401_UNAUTHORIZED
