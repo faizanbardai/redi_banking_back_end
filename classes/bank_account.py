@@ -6,12 +6,15 @@ import uuid
 class BankAccount:
     def __init__(self, email):
         self.email = email
+        self.name = None
+        self.number = None
+        self.type = None
+        self.balance = 0
 
     def create_bank_account(self, type, name):
         self.type = type
         self.name = name
         self.number = str(uuid.uuid4())
-        self.balance = 0
         connection = sqlite3.connect('database.db')
         cursor = connection.cursor()
         query = """
