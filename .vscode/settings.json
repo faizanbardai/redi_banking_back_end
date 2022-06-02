@@ -1,3 +1,6 @@
 {
-    "cSpell.words": ["dotenv", "pydantic"]
+    "cSpell.words": ["dotenv", "pydantic"],
+    "python.testing.pytestArgs": ["."],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }
